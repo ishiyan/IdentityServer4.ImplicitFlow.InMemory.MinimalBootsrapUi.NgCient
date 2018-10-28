@@ -15,6 +15,7 @@
     <AssemblyVersion>1.0.1</AssemblyVersion>
     <FileVersion>1.0.1.1</FileVersion>
     <NoWarn>1591</NoWarn>
+    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
   </PropertyGroup>
 
   <ItemGroup>
@@ -30,12 +31,6 @@
     <PackageReference Include="Microsoft.Azure.KeyVault" Version="3.0.1" />
     <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.6.2" PrivateAssets="all" IncludeAssets="runtime; build; native; contentfiles; analyzers" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.0-beta008" PrivateAssets="All" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="Serilog">
-      <HintPath>..\..\..\..\Users\ishiyan\.nuget\packages\serilog\2.7.1\lib\netstandard1.3\Serilog.dll</HintPath>
-    </Reference>
   </ItemGroup>
 
   <ItemGroup>

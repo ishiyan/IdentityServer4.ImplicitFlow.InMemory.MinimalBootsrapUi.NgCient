@@ -16,6 +16,7 @@
     <AssemblyVersion>1.0.1</AssemblyVersion>
     <FileVersion>1.0.1.1</FileVersion>
     <NoWarn>1591</NoWarn>
+    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -72,19 +73,19 @@
     </Exec>
     <Error Condition="'$(ErrorCode)' != '0'" Text="Node.js is required to build and run this project. To continue, please install Node.js from https://nodejs.org/, and then restart your command prompt or IDE." />
     <Message Importance="high" Text="node --version..." />
-    <Exec Command="node --version" />
+    <Exec Command="node --version" ConsoleToMsBuild="true" EchoOff="false" />
     <Message Importance="high" Text="npm --version..." />
-    <Exec Command="npm --version" />
+    <Exec Command="npm --version" ConsoleToMsBuild="true" EchoOff="false" />
     <Message Importance="high" Text="npm install..." />
-    <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
+    <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" ConsoleToMsBuild="true" EchoOff="false" />
   </Target>
 
   <Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">
     <!-- As part of publishing, ensure the JS resources are freshly built in production mode -->
     <Message Importance="high" Text="npm install..." />
-    <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
+    <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" ConsoleToMsBuild="true" EchoOff="false" />
     <Message Importance="high" Text="$(Ng) build --prod --build-optimizer..." />
-    <Exec WorkingDirectory="$(SpaRoot)" Command="$(Ng) build --prod --build-optimizer" />
+    <Exec WorkingDirectory="$(SpaRoot)" Command="$(Ng) build --prod --build-optimizer" ConsoleToMsBuild="true" EchoOff="false" />
 
     <!-- Include the newly-built files in the publish output -->
     <ItemGroup>
