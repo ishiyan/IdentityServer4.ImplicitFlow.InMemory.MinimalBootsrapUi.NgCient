@@ -19,8 +19,8 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <SpaRoot>ClientApp\</SpaRoot>
-    <Ng>node_modules\.bin\ng</Ng>
+    <SpaRoot>ClientApp/</SpaRoot>
+    <Ng>node_modules/.bin/ng</Ng>
     <DefaultItemExcludes>$(DefaultItemExcludes);$(SpaRoot)node_modules\**</DefaultItemExcludes>
     <BuildServerSideRenderer>false</BuildServerSideRenderer>
     <UserSecretsId>6217d1e6-111b-4d05-a1cd-b681493071c0</UserSecretsId>
@@ -83,8 +83,8 @@
     <!-- As part of publishing, ensure the JS resources are freshly built in production mode -->
     <Message Importance="high" Text="npm install..." />
     <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
-    <Message Importance="high" Text="$(Ng) build - -prod - -build-optimizer..." />
-    <Exec WorkingDirectory="$(SpaRoot)" Command="$(Ng) build - -prod - -build-optimizer" />
+    <Message Importance="high" Text="$(Ng) build --prod --build-optimizer..." />
+    <Exec WorkingDirectory="$(SpaRoot)" Command="$(Ng) build --prod --build-optimizer" />
 
     <!-- Include the newly-built files in the publish output -->
     <ItemGroup>
