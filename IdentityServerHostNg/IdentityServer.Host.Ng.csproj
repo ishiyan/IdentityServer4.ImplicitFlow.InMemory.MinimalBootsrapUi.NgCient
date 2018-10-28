@@ -65,7 +65,7 @@
     <ProjectReference Include="..\IdentityServer\IdentityServer.csproj" />
   </ItemGroup>
 
-  <Target Name="EnsureNodeEnv" BeforeTargets="Build" Condition="'!Exists('$(SpaRoot)$(Ng)')">
+  <Target Name="EnsureNodeEnv" BeforeTargets="Build" Condition="!Exists('$(SpaRoot)$(Ng)')">
     <!-- Ensure Node.js is installed -->
     <Exec Command="node --version" ContinueOnError="true">
       <Output TaskParameter="ExitCode" PropertyName="ErrorCode" />
