@@ -7,6 +7,27 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServer", "IdentityS
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServer.Host.Ng", "IdentityServerHostNg\IdentityServer.Host.Ng.csproj", "{6303E5D4-9751-4223-AA89-79C25005AE38}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TokenCertificates", "TokenCertificates", "{C4FF7986-497C-4E21-9098-A2BB1946719D}"
+	ProjectSection(SolutionItems) = preProject
+		TokenCertificates\create_token_certificates.ps1 = TokenCertificates\create_token_certificates.ps1
+		TokenCertificates\install_token_signing_certificate.ps1 = TokenCertificates\install_token_signing_certificate.ps1
+		TokenCertificates\install_token_validation_certificate.ps1 = TokenCertificates\install_token_validation_certificate.ps1
+		TokenCertificates\list_thumbprints.ps1 = TokenCertificates\list_thumbprints.ps1
+		TokenCertificates\README.md = TokenCertificates\README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{68C0B471-D476-422D-973B-A448B26CF75B}"
+	ProjectSection(SolutionItems) = preProject
+		Shared\GlobalSuppressions.cs = Shared\GlobalSuppressions.cs
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B4FAA660-7F9C-4A29-9756-727ECB838C3E}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+		NuGet.Config = NuGet.Config
+		azure-pipelines.yml = azure-pipelines.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

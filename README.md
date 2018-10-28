@@ -1,4 +1,7 @@
 # IdentityServer4.ImplicitFlow.InMemory.MinimalBootsrapUi.NgCient
+
+[![Build Status](https://mbrane.visualstudio.com/IvanShiyan/_apis/build/status/ishiyan.IdentityServer4.ImplicitFlow.InMemory.MinimalBootsrapUi.NgCient)](https://mbrane.visualstudio.com/IvanShiyan/_build/latest?definitionId=9)
+
 Shows how the [IdentityServer4](http://docs.identityserver.io/en/dev/) with [Identity](https://docs.asp.net/en/latest/security/authentication/identity.html) can be combined with Web API and [Angular7](https://blog.angular.io/) client inside a single [ASP.NET Core](https://docs.asp.net/en/latest/) project using [OpenID Connect](http://openid.net/connect/) Implicit Flow with [JWT](https://jwt.io/) access token and [angular-oauth2-oidc](https://github.com/manfredsteyer/angular-oauth2-oidc) npm package.
 Uses a minimalistic login form based on [Quickstart.UI](https://github.com/IdentityServer/IdentityServer4.Quickstart.UI).
 
