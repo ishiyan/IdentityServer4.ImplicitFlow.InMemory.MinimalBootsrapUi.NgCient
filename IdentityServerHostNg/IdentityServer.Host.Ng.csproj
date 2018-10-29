@@ -76,32 +76,37 @@
   </ItemGroup>
 
   <Target Name="EnsureNodeEnv" BeforeTargets="Build" Condition="!Exists('$(SpaRoot)$(Ng)')">
-    <!-- Ensure Node.js is installed -->
-    <Exec Command="node --version" ContinueOnError="true">
+    <Message Text="------ Started installation of npm packages ------" Importance="high" />
+    <Message Text="node --version..." Importance="high" />
+    <Exec Command="node --version" ContinueOnError="true" WorkingDirectory="$(SpaRoot)">
       <Output TaskParameter="ExitCode" PropertyName="ErrorCode" />
     </Exec>
-    <Error Condition="'$(ErrorCode)' != '0'" Text="Node.js is required to build and run this project. To continue, please install Node.js from https://nodejs.org/, and then restart your command prompt or IDE." />
-    <Message Importance="high" Text="node --version..." />
-    <Exec Command="node --version" ConsoleToMsBuild="true" EchoOff="false" />
-    <Message Importance="high" Text="npm --version..." />
+    <Message Text="npm --version..." Importance="high" />
     <Exec Command="npm --version" ConsoleToMsBuild="true" EchoOff="false" />
-    <Message Importance="high" Text="npm install..." />
-    <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" ConsoleToMsBuild="true" EchoOff="false" />
+    <Message Text="npm install..." Importance="high" />
+    <Exec Command="npm install" WorkingDirectory="$(SpaRoot)" ConsoleToMsBuild="true" EchoOff="false" />
+    <Message Text="ng --version..." Importance="high" />
+    <Exec Command="$(Ng) --version" WorkingDirectory="$(SpaRoot)" />
+    <Message Text="------ Finished installation of npm packages ------" Importance="high" />
   </Target>
 
   <Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">
     <!-- As part of publishing, ensure the JS resources are freshly built in production mode -->
-    <Message Importance="high" Text="npm install..." />
+    <Message Text="------ Started installation of npm packages ------" Importance="high" />
     <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" ConsoleToMsBuild="true" EchoOff="false" />
-    <Message Importance="high" Text="$(Ng) build --prod --build-optimizer..." />
+    <Message Text="------ Finished installation of npm packages ------" Importance="high" />
+    <Message Text="------ Started $(Ng) build --prod --build-optimizer... ------" Importance="high"/>
     <Exec WorkingDirectory="$(SpaRoot)" Command="$(Ng) build --prod --build-optimizer" ConsoleToMsBuild="true" EchoOff="false" />
+    <Message Text="------ Finished $(Ng) build --prod --build-optimizer... ------" Importance="high"/>
 
     <!-- Include the newly-built files in the publish output -->
     <ItemGroup>
       <DistFiles Include="wwwroot\**" />
       <ResolvedFileToPublish Include="@(DistFiles->'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
         <RelativePath>%(DistFiles.Identity)</RelativePath>
+        <Message Text="------ Started copying to publish directory ------" Importance="high" />
         <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+        <Message Text="------ Finished copying to publish directory ------" Importance="high" />
       </ResolvedFileToPublish>
     </ItemGroup>
   </Target>
