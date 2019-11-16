@@ -1,6 +1,6 @@
 import { Injectable, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { OAuthErrorEvent, OAuthService } from 'angular-oauth2-oidc';
 import { BehaviorSubject, combineLatest, Observable, ReplaySubject } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
