@@ -1,6 +1,6 @@
 ﻿#pragma warning disable CA2211 // Non-constant fields should not be visible
 
-namespace IdentityServer.Models
+namespace IdentityServer.Models.Account
 {
     public static class AccountOptions
     {

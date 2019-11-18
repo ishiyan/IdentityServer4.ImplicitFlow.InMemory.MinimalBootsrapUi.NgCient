@@ -2,16 +2,11 @@
 using IdentityServer.Extensions;
 using IdentityServer.Host.Ng.Extensions;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-
-// ReSharper disable once ClassNeverInstantiated.Global
-// ReSharper disable UnusedMember.Global
-#pragma warning disable CA1812 // Avoid uninstantiated internal classes
-#pragma warning disable CA1822 // Mark members as static
 
 namespace IdentityServer.Host.Ng
 {
@@ -19,9 +14,9 @@ namespace IdentityServer.Host.Ng
     {
         private IConfiguration Configuration { get; }
 
-        private IHostingEnvironment Environment { get; }
+        private IWebHostEnvironment Environment { get; }
 
-        public Startup(IHostingEnvironment env, IConfiguration conf)
+        public Startup(IWebHostEnvironment env, IConfiguration conf)
         {
             Environment = env;
             Configuration = conf;
@@ -33,7 +28,7 @@ namespace IdentityServer.Host.Ng
             services.AddAntiForgeryConfiguration();
             services.AddIdentityServerConfiguration(Configuration, Environment);
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddControllersWithViews();
 
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration => configuration.RootPath = "wwwroot");
@@ -42,21 +37,41 @@ namespace IdentityServer.Host.Ng
         public void Configure(IApplicationBuilder app)
         {
             if (Environment.IsDevelopment())
+            {
                 app.UseDeveloperExceptionPage();
-            /*else
-                app.UseExceptionHandler("/Error");*/
+            }
+            else
+            {
+                app.UseExceptionHandler("/Error");
+
+                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                /*app.UseHsts();*/
+            }
 
             // Registered before static files to always set header.
             app.UseNwebsec();
-            app.UseCorsConfiguration(Configuration);
-            app.UseIdentityServerConfiguration();
             /*app.UseHttpsRedirection();*/
+            app.UseCorsConfiguration(Configuration);
 
-            app.UseDefaultFiles();
+            // app.UseDefaultFiles();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
+            Environment.UseIdentityServerWebRoot();
 
-            app.UseMvcWithDefaultRoute();
+            if (!Environment.IsDevelopment())
+            {
+                app.UseSpaStaticFiles();
+            }
+
+            app.UseRouting();
+            app.UseIdentityServerConfiguration();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller}/{action=Index}/{id?}");
+            });
+
             app.UseSpa(spa =>
             {
                 // See https://go.microsoft.com/fwlink/?linkid=864501

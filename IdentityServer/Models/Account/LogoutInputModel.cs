@@ -1,4 +1,4 @@
-﻿namespace IdentityServer.Models
+﻿namespace IdentityServer.Models.Account
 {
     public class LogoutInputModel
     {

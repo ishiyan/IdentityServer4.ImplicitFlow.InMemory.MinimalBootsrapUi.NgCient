@@ -16,7 +16,7 @@ namespace IdentityServer.Host.Ng.Extensions
             {
                 if (allowAll)
                 {
-                    builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod().AllowCredentials();
+                    builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod(); // .AllowCredentials();
                 }
                 else if (origins != null && origins.Any())
                 {

@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using IdentityServer.Filters;
 using IdentityServer.Models;
+using IdentityServer.Models.Account;
 using IdentityServer4.Events;
 using IdentityServer4.Extensions;
 using IdentityServer4.Services;

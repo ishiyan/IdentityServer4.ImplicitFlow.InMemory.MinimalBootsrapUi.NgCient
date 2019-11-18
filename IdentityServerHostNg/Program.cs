@@ -1,10 +1,6 @@
-﻿using System.IO;
-using Microsoft.AspNetCore;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Serilog;
 
 namespace IdentityServer.Host.Ng
 {
@@ -12,52 +8,18 @@ namespace IdentityServer.Host.Ng
     {
         public static void Main(string[] args)
         {
-            CreateWebHostBuilder(args).Build().Run();
-
-            Log.Information("Stopping...");
-            Log.CloseAndFlush();
+            CreateHostBuilder(args).Build().Run();
         }
 
-        private static IWebHostBuilder CreateWebHostBuilder(string[] args)
-        {
-            IConfigurationRoot configurationRoot = BuildConfiguration();
-            return WebHost
-                .CreateDefaultBuilder(args)
-                .ConfigureAppConfiguration((hostingContext, config) =>
+        public static IHostBuilder CreateHostBuilder(string[] args) => Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder(args)
+            .ConfigureWebHostDefaults(webBuilder =>
+            {
+                webBuilder.ConfigureLogging((hostingContext, loggingBuilder) =>
                 {
-                    var env = hostingContext.HostingEnvironment;
-                    config
-                        .SetBasePath(Directory.GetCurrentDirectory())
-                        .AddJsonFile("appsettings.json", false, true)
-                        .AddJsonFile($"appsettings.{env.EnvironmentName}.json", true, true)
-                        .AddEnvironmentVariables();
-                })
-                .ConfigureLogging((hostingContext, loggingBuilder) =>
-                {
-                    // Remove console and debugger loggers provided by CreateDefaultBuilder().
                     loggingBuilder.ClearProviders();
-                })
-                .ConfigureServices((hostingContext, services) =>
-                {
-                    Log.Logger = new LoggerConfiguration()
-                        .ReadFrom.Configuration(hostingContext.Configuration)
-                        .CreateLogger();
-                    Log.Information("Getting the motors running...");
-
-                    services.AddApplicationInsightsTelemetry(hostingContext.Configuration);
-                })
-                .UseSerilog()
-                .UseConfiguration(configurationRoot)
-                .UseStartup<Startup>();
-        }
-
-        private static IConfigurationRoot BuildConfiguration()
-        {
-            return new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", false, true)
-                .AddEnvironmentVariables()
-                .Build();
-        }
+                    loggingBuilder.AddConsole();
+                });
+                webBuilder.UseStartup<Startup>();
+            });
     }
 }

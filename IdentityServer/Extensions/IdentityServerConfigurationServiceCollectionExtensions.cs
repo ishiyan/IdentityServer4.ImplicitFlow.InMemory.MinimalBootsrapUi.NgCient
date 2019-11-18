@@ -4,9 +4,9 @@ using System.IO;
 using System.Security.Cryptography.X509Certificates;
 using IdentityServer4.AccessTokenValidation;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 
 namespace IdentityServer.Extensions
 {
@@ -23,7 +23,7 @@ namespace IdentityServer.Extensions
         /// <param name="environment">An environment interface.</param>
         /// <returns>An updated service collection.</returns>
         // ReSharper disable once UnusedMethodReturnValue.Global
-        public static IServiceCollection AddIdentityServerConfiguration(this IServiceCollection services, IConfiguration configuration, IHostingEnvironment environment)
+        public static IServiceCollection AddIdentityServerConfiguration(this IServiceCollection services, IConfiguration configuration, IWebHostEnvironment environment)
         {
             Config.HostUrl = configuration.GetSection("urls").Get<string>();
 
@@ -109,7 +109,7 @@ namespace IdentityServer.Extensions
             return services;
         }
 
-        private static Tuple<X509Certificate2, X509Certificate2> GetTokenCertificates(IConfiguration configuration, IHostingEnvironment environment)
+        private static Tuple<X509Certificate2, X509Certificate2> GetTokenCertificates(IConfiguration configuration, IWebHostEnvironment environment)
         {
             IConfigurationSection configurationSection = configuration.GetSection("TokenCertificates");
             var useLocalCertStore = configurationSection.GetSection("UseLocalCertStore").Get<bool>();
