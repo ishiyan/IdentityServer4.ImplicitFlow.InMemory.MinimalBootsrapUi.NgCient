@@ -10,7 +10,7 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
- - script: dotnet publish --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory) --self-contained True
+ - script: dotnet publish --configuration $(buildConfiguration) --runtime linux-x64 --output $(Build.ArtifactStagingDirectory) --self-contained True
    displayName: 'publish project'
  - task: PublishBuildArtifacts@1
    displayName: 'publish build artifacts'
