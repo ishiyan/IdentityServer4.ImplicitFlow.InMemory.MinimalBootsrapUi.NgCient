@@ -50,7 +50,7 @@ namespace IdentityServer.Host.Ng
 
             // Registered before static files to always set header.
             app.UseNwebsec();
-            /*app.UseHttpsRedirection();*/
+            app.UseHttpsRedirection();
             app.UseCorsConfiguration(Configuration);
 
             // app.UseDefaultFiles();
