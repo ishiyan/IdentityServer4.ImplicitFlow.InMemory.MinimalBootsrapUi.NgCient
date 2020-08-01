@@ -1,4 +1,5 @@
-﻿using System.Security.Claims;
+﻿using System;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using IdentityServer.Filters;
 using IdentityServer.Models;
@@ -62,7 +63,8 @@ namespace IdentityServer.Controllers
                     await events.RaiseAsync(new UserLoginSuccessEvent(user.Username, user.SubjectId, user.Username));
 
                     // issue authentication cookie with subject ID and username
-                    await HttpContext.SignInAsync(user.SubjectId, user.Username);
+                    // await HttpContext.SignInAsync(user.SubjectId, user.Username);
+                    await HttpContext.SignInAsync(new ClaimsPrincipal());
 
                     // make sure the returnUrl is still valid, and if so redirect back to authorize endpoint or a local page
                     // the IsLocalUrl check is only necessary if you want to support additional local pages, otherwise IsValidReturnUrl is more strict
